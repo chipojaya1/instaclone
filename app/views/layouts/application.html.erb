@@ -10,6 +10,20 @@
   </head>
 
   <body>
+    <header>
+
+      <div class="logo">
+        <%= link_to image_tag 'instagram.png', :size => '40x40', action: "user_path" %>
+      </div>
+      
+      <nav>
+        <ul>
+          <li><%= link_to "Users list", users_path %></li>
+          <li><%= link_to "Sign up", new_user_path %></li>
+        </ul>
+      </nav>
+
+    </header>
     <%= yield %>
   </body>
 </html>
