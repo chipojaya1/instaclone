@@ -5,6 +5,9 @@ class UsersController < ApplicationController
 
     def new
       @user = User.new
+      if logged_in?
+        redirect_to posts_path
+      end
     end
 
     def create
