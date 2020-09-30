@@ -13,19 +13,23 @@
     <header>
 
       <div class="logo">
-        <%= link_to image_tag 'instagram.png', :size => '40x40', action: "user_path" %>
+        <%= link_to image_tag 'instagram.png', :size => '40x40', action: "posts_path" %>
       </div>
       <% if logged_in? %>
         <%= current_user.name %>
         <ul>
+          <li><%= link_to 'New Post', new_post_path %></li>
           <li><%= link_to "Profile", user_path(current_user.id) %></li>
           <li><%= link_to "Logout", session_path(current_user.id), method: :delete %></li>
+          <li><%= link_to "Favorite Posts", like_feeds_user_path(current_user.id) %></li>
         </ul>
       <% else %>
         <ul>
           <li><%= link_to "Users list", users_path %></li>
+          <li><%= link_to "Login", new_session_path %></li>
           <li><%= link_to "Sign up", new_user_path %></li>
         </ul>
+      <% end %>
     </header>
       <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>

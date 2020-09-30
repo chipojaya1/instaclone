@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  post: MyText
-  image: MyText
-  user: one
+  user_id: 1
+  post_id: 1
 
 two:
-  post: MyText
-  image: MyText
-  user: two
+  user_id: 1
+  post_id: 1
