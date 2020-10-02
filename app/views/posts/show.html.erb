@@ -1,29 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @post.name %>
-</p>
+<h1>Show</h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @post.email %>
-</p>
+<table>
+  <tr>
+    <td><strong><%= @post.user.name %></strong></td>
+    <td><%= image_tag(@post.image.url) %></td>
+    <td><%= @post.post %></td>
+    <td>
+      <% unless @post.user_id == current_user.id %>
+        <% if @favorite.present? %>
+          <%= link_to 'Add to Favorites', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+        <% else %>
+          <%= link_to 'Delete from Favorites', favorites_path(post_id: @post.id), method: :post, class: 'btn btn-primary' %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>
+      <% if @post.user_id == current_user.id %>
+        <%= link_to 'Edit', edit_post_path(@post) %>
+        <%= link_to 'Delete', @post, method: :delete, data: {confirm: 'Are you sure?'} %>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
-<p>
-  <strong>Post:</strong>
-  <%= @post.post %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @post.image %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @post.user %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
