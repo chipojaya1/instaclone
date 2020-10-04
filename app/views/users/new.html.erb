@@ -1,19 +1,31 @@
-<h1>Sign up for instac</h1>
- <% if @user.errors.any? %>
- <div id="error_explanation">
-   <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
-   <ul>
-     <% @user.errors.full_messages.each do |message| %>
-     <li><%= message %></li>
-     <% end %>
-   </ul>
- </div>
- <% end %>
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message|%>
+  <div class="alert alert-danger" role="alert">
+    <%= message %>
+  </div>
+  <% end %>
+<% end %>
 
+<div class = "setup_form">
+  <h1>Sign up for Instagramc</h1>
+  <p>Check out your friend's Pictures</p>
  <%= form_with(model: @user, local: true) do |form| %>
- <%= form.text_field :name, placeholder: 'name' %>
- <%= form.email_field :email, placeholder: 'email' %>
- <%= form.password_field :password, placeholder: 'password' %>
- <%= form.password_field :password_confirmation, placeholder: 'password_confirmation' %>
- <%= form.submit "Create my account" %>
+ <div class="user_icon">
+   <%= image_tag(@user.icon.url) if @user.icon && @user.icon.url %>
+ </div>
+ <div class="setup_form_icon">
+   <p><%= form.label :icon %><%= form.file_field :icon %></p>
+   <%= form.hidden_field :icon_cache %>
+ </div>
+ <p><%= form.text_field :name, placeholder: 'name' %></p>
+ <p><%= form.email_field :email, placeholder: 'email' %></p>
+ <p><%= form.password_field :password, placeholder: 'password' %></p>
+ <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation' %></p>
+ <div class="setup_form_button">
+   <%= form.submit "Create my account" %>
+ </div>
 <%  end %>
+</div>
+<div class = "setup_form setup_form_to_login">
+  <p>Already have an account？ <%= link_to 'Login', new_session_path %></p>
+</div>

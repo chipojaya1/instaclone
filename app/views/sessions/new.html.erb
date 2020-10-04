@@ -1,6 +1,13 @@
-<h1>Log in</h1>
-<%= form_with(scope: :session, url: sessions_path, local: true) do |form| %>
-  <%= form.email_field :email, placeholder: 'email' %>
-  <%= form.password_field :password, placeholder: 'password' %>
-  <%= form.submit "Login" %>
-<% end %>
+<div class="login_form">
+  <h1>Instagramc</h1>
+  <%= form_with(scope: :session, url:  sessions_path, local: true) do |form|%>
+    <p><%= form.email_field :email, placeholder: 'email' %></p>
+    <p><%= form.password_field :password, placeholder: 'password' %></p>
+    <div class="login_form_button">
+      <%= form.submit "Login" %>
+    </div>
+  <% end %>
+</div>
+<div class="login_form login_form_to_setup">
+  <p>New to Instgramc？<%= link_to 'Creat an account', new_user_path %></p>
+</div>
