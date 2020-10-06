@@ -1,31 +1,47 @@
 <% if @user.errors.any? %>
-  <% @user.errors.full_messages.each do |message|%>
   <div class="alert alert-danger" role="alert">
-    <%= message %>
+    <ul>
+      <% @user.errors.full_messages.each do |message|%>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
   </div>
-  <% end %>
 <% end %>
+<br>
 
-<div class = "setup_form">
-  <h1>Sign up for Instagramc</h1>
-  <p>Check out your friend's Pictures</p>
- <%= form_with(model: @user, local: true) do |form| %>
- <div class="user_icon">
-   <%= image_tag(@user.icon.url) if @user.icon && @user.icon.url %>
- </div>
- <div class="setup_form_icon">
-   <p><%= form.label :icon %><%= form.file_field :icon %></p>
-   <%= form.hidden_field :icon_cache %>
- </div>
- <p><%= form.text_field :name, placeholder: 'name' %></p>
- <p><%= form.email_field :email, placeholder: 'email' %></p>
- <p><%= form.password_field :password, placeholder: 'password' %></p>
- <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation' %></p>
- <div class="setup_form_button">
-   <%= form.submit "Create my account" %>
- </div>
-<%  end %>
-</div>
-<div class = "setup_form setup_form_to_login">
-  <p>Already have an account？ <%= link_to 'Login', new_session_path %></p>
-</div>
+<div class="row">
+  <div class="col-xs-4 col-xs-push-4 form">
+    <h1>Sign up for Instagramc</h1>
+    <p>Check out your friend's Pictures</p>
+    <%= form_with(model: @user, local: true) do |form|%>
+      <p><%= form.text_field :name, placeholder: 'name', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.email_field :email, placeholder: 'email', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.password_field :password, placeholder: 'password', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.password_field :password_confirmation, placeholder: 'password_confirmation', class: "log-in-tag" %></p>
+      <br>
+      <p><%= form.file_field :icon, placeholder: 'icon', class: "log-in-tag" %></p>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 form-btn">
+          <%= form.submit "Create my account" %>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to 'Back', root_path %>
+    <hr>
+    <p>Already have an account？？<%= link_to 'Login', new_session_path %></p>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+    <div class="col-xs-12 space">
+    </div>
+  </div>

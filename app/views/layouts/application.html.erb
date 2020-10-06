@@ -5,35 +5,33 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'true' %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'true' %>
   </head>
 
   <body>
-    <header>
+    <header class="header_container">
 
       <div class="logo">
-        <%= link_to image_tag 'instagram.png', :size => '40x40', action: "posts_path" %>
+        <%= link_to image_tag 'instagram.png', :size => '40x40', action: "root_path" %>
       </div>
-      <% if logged_in? %>
-        <%= current_user.name %>
-        <ul>
-          <li><%= link_to 'New Post', new_post_path %></li>
-          <li><%= link_to "Profile", user_path(current_user.id) %></li>
-          <li><%= link_to "Logout", session_path(current_user.id), method: :delete %></li>
-          <li><%= link_to "Favorite Posts", like_feeds_user_path(current_user.id) %></li>
-        </ul>
-      <% else %>
-        <ul>
-          <li><%= link_to "Users list", users_path %></li>
-          <li><%= link_to "Login", new_session_path %></li>
-          <li><%= link_to "Sign up", new_user_path %></li>
-        </ul>
+        <% if logged_in? %>
+        <nav>
+          <ul>
+            <li><%= link_to image_tag 'home.png', :size => '40x40', action: "user_path(current_user.id)" %></li>
+            <li><%= link_to image_tag 'plus.png', :size => '40x40', action: "new_post_url" %></li>
+            <li><%= link_to image_tag 'favorite.png', :size => '40x40', action: "icon_user_path(current_user.id)" %></li>
+            <li><%= link_to image_tag 'logout.png', :size => '40x40', action: "session_path(current_user.id)", method: :delete %></li>
+          </ul>
+        </nav>
       <% end %>
     </header>
-      <% flash.each do |key, value| %>
+    <% flash.each do |key, value| %>
+    <div class="alert alert-danger" role="alert">
       <%= content_tag(:div, value, class: "#{key}") %>
-      <% end %>
+    </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

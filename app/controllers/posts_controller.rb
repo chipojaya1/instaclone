@@ -6,7 +6,6 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.order(created_at: "DESC")
-    @users = User.all.order(created_at: "DESC")
   end
 
   def show
@@ -69,6 +68,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:name, :email, :post, :image, :image_cache, :user_id, :id,)
+    params.require(:post).permit(:name, :email, :post, :id, :image, :image_cache, :user_id)
   end
 end

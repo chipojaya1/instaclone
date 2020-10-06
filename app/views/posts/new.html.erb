@@ -1,8 +1,18 @@
-<h1>New Post</h1>
+<div class="row">
+  <div class="col-xs-4 col-xs-push-4 form">
+    <h1>Create New Post</h1>
+    <%= render 'form', post: @post %>
+    <p>
+      <%= link_to 'Back', posts_path %>
+    </p>
+  </div>
+</div>
 
-<% if logged_in? %>
-  <%= render 'form', post: @post %>
-  <%= link_to 'back', posts_path %>
-<% else %>
-  <h4>Please login first</h4>
-<% end %>
+<div class="row">
+  <div class="col-xs-12 space">
+  </div>
+  <div class="col-xs-12 space">
+  </div>
+  <div class="col-xs-12 space">
+  </div>
+</div>

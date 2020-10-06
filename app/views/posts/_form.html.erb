@@ -1,31 +1,39 @@
-<div class="form">
-  <%= form_with(model: post, local: true, url: choose_new_or_edit) do |form| %>
-    <% if post.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="row">
+  <div class="col-xs-12">
+    <% if logged_in? %>
+      <%= form_with(model: @post, local: true, url: choose_new_or_edit) do |form| %>
 
-        <ul>
-          <% post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
+        <% if post.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+            <ul>
+              <% post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= form.label :image %>
+          <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
+          <%= form.file_field :image, id: :post_image %>
+          <%= form.hidden_field :image_cache %>
+        </div>
+
+        <div class="field">
+          <%= form.label :post %>
+          <%= form.text_area :post%>
+        </div>
+
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+
+    <% else %>
+      <p>You must be signed in to write a post.</p>
     <% end %>
-
-    <div class="field">
-      <%= form.label :image %>
-      <%= image_tag(@post.image.url) if @post.image && @post.image.url %>
-      <%= form.file_field :image, id: :post_image %>
-      <%= form.hidden_field :image_cache %>
-    </div>
-
-    <div class="field">
-      <%= form.label :post %>
-      <%= form.text_area :post, id: :post_content %>
-    </div>
-
-    <div class="actions">
-      <%= form.submit %>
-    </div>
-  <% end %>
+  </div>
 </div>

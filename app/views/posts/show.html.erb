@@ -1,28 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid post-spacing">
 
-<h1>Show</h1>
+  <div class="row">
+    <div class="col-xs-6 col-xs-push-3">
+      <p id="notice"><%= notice %></p>
+    </div>
+  </div>
 
-<table>
-  <tr>
-    <td><strong><%= @post.user.name %></strong></td>
-    <td><%= image_tag(@post.image.url) %></td>
-    <td><%= @post.post %></td>
-    <td>
-      <% unless @post.user_id == current_user.id %>
-        <% if @favorite.present? %>
-          <%= link_to 'Add to Favorites', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
-        <% else %>
-          <%= link_to 'Delete from Favorites', favorites_path(post_id: @post.id), method: :post, class: 'btn btn-primary' %>
-        <% end %>
-      <% end %>
-    </td>
-    <td>
-      <% if @post.user_id == current_user.id %>
-        <%= link_to 'Edit', edit_post_path(@post) %>
-        <%= link_to 'Delete', @post, method: :delete, data: {confirm: 'Are you sure?'} %>
-      <% end %>
-    </td>
-  </tr>
-</table>
+  <div class="row">
+    <div class="col-xs-6 col-xs-push-3 post">
+      <div class="post">
 
-<%= link_to 'Back', posts_path %>
+        <div class="row post-head">
+          <div class="col-xs-1 thumb-img">
+            <%= image_tag @post.user.icon.url(:thumb), class: 'img-responsive img-circle' %>
+          </div>
+          <div class="col-xs-10 name">
+            <p>
+              <%= link_to "#{@post.user.name}", @post.user %>
+            </p>
+          </div>
+        </div>
+        <a href=<%= "/posts/#{@post.id}" %>>
+          <div class="row post-img">
+            <%= image_tag @post.image.url(:large), class: 'img-responsive post-img' %>
+          </div>
+          <div class="row post-p">
+            <%= post.post %>
+          </div>
+        </a>
+        <div class="row post-tasks">
+          <strong><%= @post.favorites.count %></strong>
+          <% if @post.favorites.count == 1 %>
+            <strong>favorite</strong>
+          <% else %>
+            <strong>favorites</strong>
+          <% end %>
+          <% if logged_in? %>
+            <% if current_user.favorites.find_by(post_id: @post.id).nil? %>
+              | <%= link_to 'favorite post', favorites_path(post_id: @post.id), method: :post %>
+              <% else %>
+              | <%= link_to 'unfavorite post', favorite_path(id: @favorite.id), method: :delete %>
+          <% end %>
+
+          <% if logged_in? && current_user == @post.user%>
+            | <%= link_to 'Edit', edit_post_path(@post) %>
+            | <%= link_to 'Delete', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Back', posts_path, class: 'btn btn-primary' %>
